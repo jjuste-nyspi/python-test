@@ -12,3 +12,11 @@ print(len(course))
 x = 10
 x += 3
 print(x)
+
+def mul_by_n(lst, n):
+    print("Inputs: ", lst, n) # Check our inputs
+    result = (x * n for x in lst)
+    print("Result: ", list(result)) # Check our result
+    return list(result)
+
+mul_by_n([1, 2, 3], 4)
