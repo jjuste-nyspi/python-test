@@ -14,6 +14,8 @@ Trigger from active message:
 2) pull [yn_igr_group] and instrument-specific value for all records
 3) determine least frequency; randomize on tie
 4) write value to that record
+
+5/13/2023 - Updated for ACE Tweaks
 """
 
 import json
@@ -26,7 +28,7 @@ def lambda_handler(event, context):
     # function specifics
     debug = 1
     instfield = 'pci_order'
-    allowed = ['Toy', 'No-toy']
+    allowed = ['1', '2']
     # Pull details from the message
     body = event['Records'][0]['body']
     rid = (body.split('&record=')[1]).split('&')[0]
@@ -72,7 +74,7 @@ def lambda_handler(event, context):
     if debug:
         print(df)
     # Need frequency by IGR GROUP so drop the opposite
-    thisgroup = df.loc[df['record_id'] == rid, 'yn_igr_group'].unique()[0]
+    thisgroup = df.loc[df['record_id'] == rid, 'yn_igr_group'].unique()[0] thisgroup = df.loc[df['record_id'] == rid, 'yn_igr_group'].unique()[0]
     if debug:
         print(type(thisgroup))
         print("This group is", thisgroup)
