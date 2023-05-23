@@ -4,29 +4,33 @@ import json
 import pandas as pd
 
 data = {
-    'token': '9E26D0A9801C4895B340D22CD6B6196B',
+    'token': '5F65D219291AFD9F51F5279EA557D2B6',
     'content': 'record',
     'action': 'export',
     'format': 'json',
-    'type': 'flat',
+    'type': 'eav',
     'csvDelimiter': '',
-    'fields[0]': 'record_id',
+    'fields[0]': 'yn_igr_group',
+    'fields[1]': 'pci_request',
+    'fields[2]': 'pci_order',
+    'events[0]': 'month6_arm_1',
+    'events[1]': 'month9_arm_1',
     'rawOrLabel': 'raw',
     'rawOrLabelHeaders': 'raw',
     'exportCheckboxLabel': 'false',
     'exportSurveyFields': 'false',
     'exportDataAccessGroups': 'false',
-    'returnFormat': 'json'
+    'returnFormat': 'json',
+    'filterLogic': '[enrollment_and_consent_complete]=2'
 }
+
 r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
 print(r.json())
 
 #get my data
 df = pd.DataFrame.from_records(r.json())
-#df['record_id'] = pd.RangeIndex(stop=df.shape[0])
-df['record_id'] = ['str_%s' %i for i in range(1, len(df) + 1)]
-#df['record_id'] = range(1, 1+len(df))
+df['record'] = ['PRG_%s' %i for i in range(1, len(df) + 1)]
 print(df)
 
 #dictionary = r.json()

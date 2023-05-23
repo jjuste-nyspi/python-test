@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 import requests
+import json
+import pandas as pd
+
+
 data = {
     'token': '5F65D219291AFD9F51F5279EA557D2B6',
     'content': 'record',
@@ -23,4 +27,7 @@ data = {
 
 r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
-print(r.text)
+
+
+print(r.json())
+
