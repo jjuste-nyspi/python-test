@@ -1,13 +1,6 @@
 import json
+import pandas as pd
 
-json = [{
-    "id": 1, "name": "a"
-}, {
-    "id": 2, "name": "b"
-}]
-# Serializing json
-for obj in json:
-    if obj['id'] == 2:
-        obj['name'] = 'something'
-
-print(json)
+# Data to be written
+df['New_Column'] = np.arange(df[0])+1
+df['New_Column'] = 'str' + df['New_Column'].astype(str)
