@@ -23,9 +23,28 @@ data = {
 }
 r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
-print(r.json())
+#print(r.json())
 
 #r.json is class 'method'
-print(type(r.json))
+#print(type(r.json))
 
-#convert my class method to json object
+#convert my class method to json string
+jsonstr1 = json.dumps(r.json())
+
+#print(jsonstr1)
+#print(type(jsonstr1))
+
+
+#convert json string to json object
+jsonObject = json.loads(jsonstr1)
+#print(jsonObject)
+#print(type(jsonObject))
+
+for obj in jsonObject:
+  if obj["prog_id"] == '':
+    obj["prog_id"] = 'PROG_' + obj["record_id"]
+
+print(jsonObject)
+
+
+
