@@ -1,33 +1,31 @@
 #!/usr/bin/env python
 import requests
 import json
-import pandas as pd
-
-
 data = {
-    'token': '5F65D219291AFD9F51F5279EA557D2B6',
+    'token': '21678CA785CE821AADC6587B07643466',
     'content': 'record',
     'action': 'export',
     'format': 'json',
-    'type': 'eav',
+    'type': 'flat',
     'csvDelimiter': '',
-    'fields[0]': 'yn_igr_group',
-    'fields[1]': 'pci_request',
-    'fields[2]': 'pci_order',
-    'events[0]': 'month6_arm_1',
-    'events[1]': 'month9_arm_1',
+    'fields[0]': 'record_id',
+    'fields[1]': 'fname',
+    'fields[2]': 'lname',
+    'fields[3]': 'patient_info_complete',
+    'fields[4]': 'prog_id',
+    'fields[5]': 'program_id_complete',
     'rawOrLabel': 'raw',
     'rawOrLabelHeaders': 'raw',
     'exportCheckboxLabel': 'false',
     'exportSurveyFields': 'false',
     'exportDataAccessGroups': 'false',
-    'returnFormat': 'json',
-    'filterLogic': '[enrollment_and_consent_complete]=2'
+    'returnFormat': 'json'
 }
-
 r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
-
-
 print(r.json())
 
+#r.json is class 'method'
+print(type(r.json))
+
+#convert my class method to json object
