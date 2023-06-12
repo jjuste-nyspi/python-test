@@ -1,18 +1,9 @@
-"""
-ACE requires a Progress ID
-The syntax is PRG_1[sequential-5-digits-with-leading-zeros] (e.g. PRG_100013).
-Find the next free record ID number and rename to that pattern
-"""
 #!/usr/bin/env python
 import requests
 import pandas as pd
-import re
 
-
-#export
-token = '9E26D0A9801C4895B340D22CD6B6196B'
 data = {
-    'token': token,
+    'token': '21678CA785CE821AADC6587B07643466',
     'content': 'record',
     'action': 'export',
     'format': 'json',
@@ -28,8 +19,24 @@ data = {
 }
 r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
-#print(r.json())
+print(r.json())
 
-# get dataframe from response
 df = pd.DataFrame(r.json())
+
+data = {
+    'token': '21678CA785CE821AADC6587B07643466',
+    'content': 'generateNextRecordName'
+}
+r = requests.post('https://rc-1.nyspi.org/api/',data=data)
+print('HTTP Status: ' + str(r.status_code))
+print(r.text)
+
+df = pd.DataFrame([r.text], columns=['record_id'])
 print(df)
+
+newid = r.text
+
+
+
+
+

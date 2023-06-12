@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import pandas
 import requests
+import mimail
 
-#baseline data
+
+# export baseline data
 data = {
     'token': '597A2BEA1947B2364EDF32793E781B92',
     'content': 'record',
@@ -14,8 +16,9 @@ data = {
     'fields[1]': 'f_name',
     'fields[2]': 'l_name',
     'fields[3]': 'email',
-    'events[4]': 'baseline_arm_1',
-    'rawOrLabel': 'raw',
+    'fields[4]': 'mh_initiative_name_number',
+    'events[0]': 'baseline_arm_1',
+    'rawOrLabel': 'label',
     'rawOrLabelHeaders': 'raw',
     'exportCheckboxLabel': 'false',
     'exportSurveyFields': 'false',
@@ -26,11 +29,10 @@ r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
 #print(r.json())
 
+# baseline variable
 baseline_df = pandas.DataFrame(r.json())
-#print(baseline_df)
 
-
-#current data
+# export current data event data
 data = {
     'token': '597A2BEA1947B2364EDF32793E781B92',
     'content': 'record',
@@ -42,7 +44,7 @@ data = {
     'fields[1]': 'f_name',
     'fields[2]': 'l_name',
     'fields[3]': 'email',
-    'events[4]': '20230529_arm_1',
+    'events[0]': '20230529_arm_1',
     'rawOrLabel': 'raw',
     'rawOrLabelHeaders': 'raw',
     'exportCheckboxLabel': 'false',
@@ -54,13 +56,19 @@ r = requests.post('https://rc-1.nyspi.org/api/',data=data)
 print('HTTP Status: ' + str(r.status_code))
 #print(r.json())
 
+# current event variable
 current_event_df = pandas.DataFrame(r.json())
-#print(current_event_df)
 
 # pull record id's from current events that responded
-lst = [i for i in current_event_df['record_id']]
-print(lst)
+# populate list for yes respondents
+yes_respondents = [i for i in current_event_df['record_id']]
+
+#extract these yes respondents from baseline
+finaldf = baseline_df[~baseline_df['record_id'].isin(yes_respondents)]
+finaldf.dropna(subset=['email'],inplace=True)
+finaldf = finaldf[finaldf['email'].str.len()>3]
+
+print(finaldf[['record_id','mh_initiative_name_number','email']])
 
 
-#df['available'] = df.apply(lambda row: row[row == 1].index.tolist(), axis=1)
-#remove those record id's from baseline
+finaldf.to_excel("output.xlsx")

@@ -26,27 +26,18 @@ data = {
     'returnFormat': 'json'
 }
 r = requests.post('https://rc-1.nyspi.org/api/',data=data)
-#print('HTTP Status: ' + str(r.status_code))
-#print(r.json())
+print('HTTP Status: ' + str(r.status_code))
+print(r.json())
 
 df = pd.DataFrame(r.json())
+df = df[~df['record_id'].str.contains('PRG')]
 
-#locate columns that need to be formatted
-filtered_df = df[~df["record_id"].str.contains("PRG")]
+df['record_id'] = df['record_id'].apply(lambda x: '{0:0>5}'.format(x))
+df["record_id"] = 'PRG_1' + df["record_id"].astype(str)
 
-#variable for lead zeroes
-lead_zeroes_df = filtered_df
+updated_record_ids = df.values
 
-#add my lead zeroes
-lead_zeroes_df["record_id"] = df["record_id"].map(lambda x: f'{x:0>5}')
-
-#variable for prefix
-append_prefix_df = lead_zeroes_df
-
-#append my prefix
-append_prefix_df["record_id"] = 'PRG_1' + lead_zeroes_df["record_id"].astype(str)
-
-print(append_prefix_df)
+print(updated_record_ids)
 
 
 

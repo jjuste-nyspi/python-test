@@ -1,19 +1,12 @@
-#!/usr/bin/env python
-import requests
-data = {
-    'token': '21678CA785CE821AADC6587B07643466',
-    'content': 'record',
-    'action': 'export',
-    'format': 'json',
-    'type': 'flat',
-    'csvDelimiter': '',
-    'rawOrLabel': 'raw',
-    'rawOrLabelHeaders': 'raw',
-    'exportCheckboxLabel': 'false',
-    'exportSurveyFields': 'false',
-    'exportDataAccessGroups': 'false',
-    'returnFormat': 'json'
-}
-r = requests.post('https://rc-1.nyspi.org/api/',data=data)
-print('HTTP Status: ' + str(r.status_code))
-print(r.json())
+def abbrev_name(name):
+    a = name.split()
+    b = [item[0] for item in a]
+    c = [i.upper() for i in b]
+    d = ".".join(c)
+    print(d)
+
+abbrev_name("Sam Harris")
+abbrev_name("patrick feenan")
+abbrev_name("Evan C")
+abbrev_name("P Favuzzi")
+abbrev_name("David Mendieta")
