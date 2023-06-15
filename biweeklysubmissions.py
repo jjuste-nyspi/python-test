@@ -17,8 +17,8 @@ data = {
     'type': 'flat',
     'csvDelimiter': '',
     'events[0]': current_event,
-    'rawOrLabel': 'raw',
-    'rawOrLabelHeaders': 'raw',
+    'rawOrLabel': 'label',
+    'rawOrLabelHeaders': 'label',
     'exportCheckboxLabel': 'false',
     'exportSurveyFields': 'false',
     'exportDataAccessGroups': 'false',
@@ -31,17 +31,20 @@ print('HTTP Status: ' + str(r.status_code))
 df = pd.DataFrame(r.json())
 
 #drop columns
-df = df.drop(columns=['redcap_event_name','text'])
+df = df.drop(columns=['redcap_event_name', 'text', 'event_label', 'mh_initiative_name_number', 'f_name', 'l_name',
+                      'email', 'calc_duedate', 'mhi_baseline_complete', 'mhi_questionnaire_complete'])
 
+# remove pandas indexed column, set record id as index
 
+df = df.set_index('record_id')
 
-#remove pandas indexed column
+# copy record id column, we will use the values to generate initiative names
 
 # rename row headers
 
-#insert na in certain columns
+# insert na in certain columns
 
-#erase any necessary columns
+# erase any necessary columns
 
 
 print(df)
