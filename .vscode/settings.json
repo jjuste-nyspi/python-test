@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./employee-project/employee_project",
+        "./employee-project/employee_project/modules"
+    ]
+}
