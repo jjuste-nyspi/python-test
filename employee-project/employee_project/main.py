@@ -1,9 +1,11 @@
 # importing sys
-import sys
+#import sys
 
 #add my folder
-sys.path.insert(1, 'C:\development\python-test\employee-project\employee_project\modules')
+#sys.path.insert(1, 'C:\development\python-test\employee-project\employee_project\modules')
 
-from calculation import add
+from employee import Employee
 
-print(add(4,5))
+circle_instance = Employee(4)
+print(circle_instance.area())
+
