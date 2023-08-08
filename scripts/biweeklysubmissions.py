@@ -7,7 +7,7 @@ import pandas
 
 #export data
 token = '597A2BEA1947B2364EDF32793E781B92'
-current_event = '20230529_arm_1'
+current_event = '20230612_arm_1'
 
 data = {
     'token': '597A2BEA1947B2364EDF32793E781B92',
@@ -35,7 +35,6 @@ df = df.drop(columns=['redcap_event_name', 'text', 'event_label', 'mh_initiative
                       'email', 'calc_duedate', 'mhi_baseline_complete', 'mhi_questionnaire_complete'])
 
 # remove pandas indexed column, set record id as index
-
 df = df.set_index('record_id')
 
 # copy record id column, we will use the values to generate initiative names
