@@ -1,18 +1,22 @@
-class Student:
-    NUM_GRADES = 5
+class Employee:
+   'Common base class for all employees'
+   empCount = 0
 
-    def __init__(self, name):
-        self.name = name
-        self.grades = []
-        for i in range(Student.NUM_GRADES):
-            self.grades.append(0)
+   def __init__(self, name, salary):
+      self.name = name
+      self.salary = salary
+      Employee.empCount += 1
+   
+   def displayCount(self):
+     print ("Total Employee %d" % Employee.empCount)
 
-    def __str__(self):
+   def displayEmployee(self):
+      print ("Name : ", self.name,  ", Salary: ", self.salary)
 
-        result = f'this is string representation {self.name }'
-        return result
-    
-s1 = Student('Mary')
-print(s1)
-s2 = Student('Bill')
-print (str(s1) + '\n' + str(s2))
+"This would create first object of Employee class"
+emp1 = Employee("Zara", 2000)
+"This would create second object of Employee class"
+emp2 = Employee("Manni", 5000)
+emp1.displayEmployee()
+emp2.displayEmployee()
+print ("Total Employee %d" % Employee.empCount)

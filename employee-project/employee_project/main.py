@@ -4,4 +4,9 @@ sys.path.insert(1, 'C:\development\python-test\employee-project\employee_project
 from employee import Employee
 
 employee1 = Employee("jean", "developer", "redcap", 50000, 2022)
-print(str(employee1))
+
+#string representation
+#print(str(employee1))
+
+
+print ("Total Employee %d" % Employee.empcount)
